@@ -1,0 +1,13 @@
+  http://localhost:8000/api/auth/superadmin/login
+  http://localhost:8000/api/auth/users/add
+  http://localhost:8000/api/auth/change-password
+  http://localhost:8000/api/auth/login
+
+  http://localhost:8000/api/superadmin/users
+  http://localhost:8000/api/superadmin/roles
+  http://localhost:8000/api/superadmin/content
+  http://localhost:8000/api/superadmin/assign-role
+  http://localhost:8000/api/superadmin/assign-content
+  http://localhost:8000/api/superadmin/addRole
+
+  
