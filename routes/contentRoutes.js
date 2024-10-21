@@ -4,6 +4,6 @@ const authMiddleware =  require('../middleware/authMiddleware')
 const {checkContentAccess} = require('../controllers/cotentController.js')
 
 
-router.get('/access/:contentId/:permission', authMiddleware, checkContentAccess);
+router.get('/access/:contentId/:permission',authMiddleware,checkContentAccess);
 
 module.exports = router;

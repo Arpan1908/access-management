@@ -10,4 +10,4 @@
   http://localhost:8000/api/superadmin/assign-content
   http://localhost:8000/api/superadmin/addRole
 
-  
+  http://localhost:8000/api/access/6714aa36fde75466625af84f/edit

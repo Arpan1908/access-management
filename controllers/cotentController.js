@@ -1,21 +1,18 @@
 const User = require('../models/User');
 const Content = require('../models/Content');
 
-
 // Check if the user has access to the content
 exports.checkContentAccess = async (req, res) => {
   try {
     const { contentId, permission } = req.params;
-    const userId = req.user._id; 
+    const userId = req.user.id;  // User is now attached to req.user by the middleware
 
-    // Find the user
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
-    }
+    // Ensure the user has access to the specific content
+    const contentAccess = req.user.contentAccess.find(
+      access => access.contentId.toString() === contentId);
 
-   
-    const contentAccess = user.contentAccess.find(access => access.contentId.toString() === contentId);
+    console.log('Permissions for Content:', contentAccess.permissions);
+
 
     if (!contentAccess) {
       return res.status(403).json({ msg: 'Access denied: No access to this content' });
@@ -27,7 +24,8 @@ exports.checkContentAccess = async (req, res) => {
     }
 
     // Fetch the content if the user has permission
-    const content = await Content.findById(contentId);
+    const content = await Content.findOne({contentId});
+    console.log(content)
     if (!content) {
       return res.status(404).json({ msg: 'Content not found' });
     }
@@ -43,5 +41,3 @@ exports.checkContentAccess = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
-
-
