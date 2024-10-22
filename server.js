@@ -8,6 +8,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const superAdminRoutes = require('./routes/superAdminRoutes');
 const contentRoutes  = require('./routes/contentRoutes')
+const docRoutes = require('./routes/documentRoute');
 const User = require('./models/User');
 const Content = require('./models/Content')
 const bcrypt = require('bcrypt');
@@ -24,6 +25,7 @@ app.use(morgan('combined'));
 app.use('/api/auth', authRoutes);
 app.use('/api/superadmin', superAdminRoutes);
 app.use('/api',contentRoutes)
+app.use('/api/doc',docRoutes)
 
 app.listen(8000,()=>{
     console.log("server is running on port 8000");

@@ -54,8 +54,10 @@ exports.loginUser = async (req, res) => {
       // Generate a JWT token
       const payload = {
         user: {
-          id: user.id,
-          role: user.role
+          id: user._id,
+          email: user.email,
+          contentAccess: user.contentAccess,  // Assuming contentAccess is an array of IDs
+          department: user.department
         }
       };
   

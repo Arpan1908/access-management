@@ -41,3 +41,40 @@ exports.checkContentAccess = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+
+
+
+
+// Function to get content accessible by the users in the same department
+exports.getDepartmentContent = async (req, res) => {
+  try {
+    // Get the current user's department from the JWT token or session (assuming req.user is populated via middleware)
+    const currentUser = await User.findById(req.user.id);
+    const department = currentUser.department;
+
+    // Find all users in the same department
+    const departmentUsers = await User.find({ department }).select('_id');
+
+    // Get the documents accessible by all users in the department
+    const departmentUserIds = departmentUsers.map(user => user._id);
+    
+    // Find content assigned to any user in the department
+    const accessibleContent = await Content.find({ assignedTo: { $in: departmentUserIds } });
+
+    res.json({ department, accessibleContent });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+
+
+
+exports.editData = async(req,res)=>{
+  try {
+    const { contentId, data } = req.body;
+    const userId = req.user.id;  // User is now attached to req.user by the middleware
+  } catch (err) {}
+
+}
