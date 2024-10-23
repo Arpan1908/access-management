@@ -77,6 +77,7 @@ const workshopSchema = new mongoose.Schema({
   name: { type: String,  }, // Name of the workshop
   date: { type: Date,  },
   attendedBy: { type: String,  },
+  department: { type: String, required: true },
   documentLink: { type: String, },
 });
 const Workshop = mongoose.model('Workshop', workshopSchema);
@@ -86,6 +87,7 @@ const awardSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   date: { type: Date, required: true },
+  department: { type: String, required: true },
   documentLink: { type: String, },
 });
 const Award = mongoose.model('Award', awardSchema);
@@ -95,6 +97,7 @@ const competitionSchema = new mongoose.Schema({
   eventDate: { type: Date, required: true },
   competitionType: { type: String, required: true },
   competitionName: { type: String, required: true },
+  department: { type: String, required: true },
   documentLink: { type: String, },
 });
 const Competition = mongoose.model('Competition', competitionSchema);
@@ -105,6 +108,7 @@ const conferenceSchema = new mongoose.Schema({
   topic: { type: String, required: true },
   date: { type: Date, required: true },
   attendedBy: { type: String, required: true },
+  department: { type: String, required: true },
   documentLink: { type: String, },
 });
 const Conference = mongoose.model('Conference', conferenceSchema);
@@ -116,6 +120,7 @@ const consultancySchema = new mongoose.Schema({
   companyName: { type: String, required: true },
   orderAmount: { type: Number, required: true },
   orderDate: { type: Date, required: true },
+  department: { type: String, required: true },
   status: { type: String, enum: ['Ongoing', 'Completed'], required: true },
   documentLink: { type: String, },
 });
@@ -128,6 +133,7 @@ const fdpSchema = new mongoose.Schema({
   topic: { type: String, required: true },
   attendedBy: { type: String, required: true }, // Name of the person who attended
   department: { type: String, required: true },
+  
   documentLink: { type: String, }, // Department of the attendee,
 });
 const FDP = mongoose.model('FDP', fdpSchema);
@@ -136,6 +142,7 @@ const FDP = mongoose.model('FDP', fdpSchema);
 const hackathonSchema = new mongoose.Schema({
   eventName: { type: String, required: true },
   eventDate: { type: Date, required: true },
+  department: { type: String, required: true },
   participantsCount: { type: Number, required: true },
   documentLink: { type: String, },
 });
@@ -146,6 +153,7 @@ const tourSchema = new mongoose.Schema({
   organizedBy: { type: String, required: true },
   date: { type: Date, required: true },
   industryName: { type: String, required: true },
+  department: { type: String, required: true },
   attendedBy: { type: String, required: true },
   documentLink: { type: String, },
 });
