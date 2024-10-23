@@ -14,8 +14,13 @@ const {
   exports.updateContent = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this content.' });
+      }
+  
       const content = await Content.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!content) {
         return res.status(404).json({ msg: 'Content not found' });
@@ -27,12 +32,24 @@ const {
     }
   };
   
-  // Update Workshop
+ 
+  const hasPermission = (user, documentId, permissionType) => {
+    return user.contentAccess.some(
+      (access) =>
+        access.contentId.toString() === documentId && access.permissions === permissionType
+    );
+  };
+
   exports.updateWorkshop = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this workshop.' });
+      }
+  
       const workshop = await Workshop.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!workshop) {
         return res.status(404).json({ msg: 'Workshop not found' });
@@ -48,8 +65,13 @@ const {
   exports.updateAward = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
+  
       const award = await Award.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!award) {
         return res.status(404).json({ msg: 'Award not found' });
@@ -65,8 +87,13 @@ const {
   exports.updateCompetition = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this competition.' });
+      }
+  
       const competition = await Competition.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!competition) {
         return res.status(404).json({ msg: 'Competition not found' });
@@ -82,8 +109,15 @@ const {
   exports.updateConference = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
+    
+  
+    
       const conference = await Conference.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!conference) {
         return res.status(404).json({ msg: 'Conference not found' });
@@ -99,8 +133,14 @@ const {
   exports.updateConsultancy = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
+  
+   
       const consultancy = await Consultancy.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!consultancy) {
         return res.status(404).json({ msg: 'Consultancy not found' });
@@ -116,8 +156,14 @@ const {
   exports.updateFDP = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
+  
+   
       const fdp = await FDP.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!fdp) {
         return res.status(404).json({ msg: 'FDP not found' });
@@ -133,8 +179,13 @@ const {
   exports.updateHackathon = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
+    
       const hackathon = await Hackathon.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!hackathon) {
         return res.status(404).json({ msg: 'Hackathon not found' });
@@ -150,8 +201,12 @@ const {
   exports.updateIndustrialTour = async (req, res) => {
     const { documentId } = req.params;
     const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const tour = await IndustrialTour.findByIdAndUpdate(documentId, updateData, { new: true });
       if (!tour) {
         return res.status(404).json({ msg: 'Industrial Tour not found' });
@@ -171,7 +226,14 @@ const {
   exports.insertContent = async (req, res) => {
     const newData = req.body;
   
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
+  
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const content = new Content(newData);
       await content.save();
       res.status(201).json({ msg: 'Content created successfully', content });
@@ -185,7 +247,14 @@ const {
   exports.insertWorkshop = async (req, res) => {
     const newData = req.body;
   
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
+  
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const workshop = new Workshop(newData);
       await workshop.save();
       res.status(201).json({ msg: 'Workshop created successfully', workshop });
@@ -199,7 +268,14 @@ const {
   exports.insertAward = async (req, res) => {
     const newData = req.body;
   
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
+  
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const award = new Award(newData);
       await award.save();
       res.status(201).json({ msg: 'Award created successfully', award });
@@ -213,7 +289,14 @@ const {
   exports.insertCompetition = async (req, res) => {
     const newData = req.body;
   
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
+  
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const competition = new Competition(newData);
       await competition.save();
       res.status(201).json({ msg: 'Competition created successfully', competition });
@@ -226,8 +309,14 @@ const {
   // Insert Conference
   exports.insertConference = async (req, res) => {
     const newData = req.body;
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const conference = new Conference(newData);
       await conference.save();
       res.status(201).json({ msg: 'Conference created successfully', conference });
@@ -241,7 +330,14 @@ const {
   exports.insertConsultancy = async (req, res) => {
     const newData = req.body;
   
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
+  
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const consultancy = new Consultancy(newData);
       await consultancy.save();
       res.status(201).json({ msg: 'Consultancy created successfully', consultancy });
@@ -255,7 +351,14 @@ const {
   exports.insertFDP = async (req, res) => {
     const newData = req.body;
   
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
+  
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const fdp = new FDP(newData);
       await fdp.save();
       res.status(201).json({ msg: 'FDP created successfully', fdp });
@@ -268,8 +371,14 @@ const {
   // Insert Hackathon
   exports.insertHackathon = async (req, res) => {
     const newData = req.body;
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const hackathon = new Hackathon(newData);
       await hackathon.save();
       res.status(201).json({ msg: 'Hackathon created successfully', hackathon });
@@ -282,8 +391,14 @@ const {
   // Insert Industrial Tour
   exports.insertIndustrialTour = async (req, res) => {
     const newData = req.body;
+    const { documentId } = req.params;
+    const updateData = req.body;
+    const user = req.user;
   
     try {
+      if (!hasPermission(user, documentId, 'edit')) {
+        return res.status(403).json({ msg: 'Access denied. You do not have permission to edit this award.' });
+      }
       const tour = new IndustrialTour(newData);
       await tour.save();
       res.status(201).json({ msg: 'Industrial Tour created successfully', tour });

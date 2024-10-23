@@ -5,23 +5,24 @@ const checkEditPermission = require('../middleware/checkEditPermission');
 const updateController = require('../controllers/updateController');
 
 // Route to update Content
-router.put('/content/:documentId', authMiddleware, checkEditPermission, updateController.updateContent);
+router.put('/content/:documentId', authMiddleware,  updateController.updateContent);
 
 // Route to update Workshop
-router.put('/workshop/:documentId', authMiddleware, checkEditPermission, updateController.updateWorkshop);
+router.put('/workshop/:documentId', authMiddleware,  updateController.updateWorkshop);
+router.get('/workshop/:documentId', authMiddleware, updateController.updateWorkshop);
 
 // Route to update Award
-router.put('/award/:documentId', authMiddleware, checkEditPermission, updateController.updateAward);
+router.put('/award/:documentId', authMiddleware,  updateController.updateAward);
 
 // Route to update Competition
-router.put('/competition/:documentId', authMiddleware, checkEditPermission, updateController.updateCompetition);
+router.put('/competition/:documentId', authMiddleware, updateController.updateCompetition);
 
 // Add other routes for different schemas (like Conference, Consultancy, etc.)
-router.put('/conference/:documentId', authMiddleware, checkEditPermission, updateController.updateConference);
-router.put('/consultancy/:documentId', authMiddleware, checkEditPermission, updateController.updateConsultancy);
-router.put('/fdp/:documentId', authMiddleware, checkEditPermission, updateController.updateFDP);
-router.put('/hackathon/:documentId', authMiddleware, checkEditPermission, updateController.updateHackathon);
-router.put('/industrialtour/:documentId', authMiddleware, checkEditPermission, updateController.updateIndustrialTour);
+router.put('/conference/:documentId', authMiddleware,  updateController.updateConference);
+router.put('/consultancy/:documentId', authMiddleware,  updateController.updateConsultancy);
+router.put('/fdp/:documentId', authMiddleware,  updateController.updateFDP);
+router.put('/hackathon/:documentId', authMiddleware,  updateController.updateHackathon);
+router.put('/industrialtour/:documentId', authMiddleware,  updateController.updateIndustrialTour);
 
 
 

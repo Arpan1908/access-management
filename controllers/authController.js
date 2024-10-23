@@ -56,6 +56,7 @@ exports.loginUser = async (req, res) => {
         user: {
           id: user._id,
           email: user.email,
+          permission:user.role,
           contentAccess: user.contentAccess,  // Assuming contentAccess is an array of IDs
           department: user.department
         }
